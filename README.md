@@ -1,5 +1,8 @@
 # reflet
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/badge/go-1.23+-00ADD8?logo=go)](https://golang.org)
+
 Local secret management that keeps values out of agent process memory.
 
 Instead of injecting `sk-xxx...` into environment variables, `reflet` injects opaque references like `ref://openai-api-key`. A local proxy resolves them to real values only when an outbound request is about to leave your machine.
