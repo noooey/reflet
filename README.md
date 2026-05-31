@@ -13,7 +13,49 @@ The name `reflet` comes from `reference` + `let`: let the process hold a referen
 
 ## Status
 
-This repository currently contains the product specification and implementation plan. It does not yet contain a working binary.
+This repository contains the product specification and a working Go PoC. The CLI builds and runs on macOS, Linux, and Windows.
+
+## Quick Start
+
+### Build
+
+```bash
+git clone https://github.com/noooey/reflet.git
+cd reflet
+make build
+```
+
+### Store a secret
+
+```bash
+./bin/reflet set openai-api-key
+# Enter secret: sk-xxxxxxxxxxxxxxxxxxxxxxxx
+# stored openai-api-key as ref://openai-api-key
+```
+
+### List stored references
+
+```bash
+./bin/reflet list
+# openai-api-key
+```
+
+### Run a command with references
+
+```bash
+./bin/reflet run -e OPENAI_API_KEY=ref://openai-api-key -- curl \
+  -H "Authorization: Bearer ref://openai-api-key" \
+  https://api.openai.com/v1/models
+```
+
+The `curl` process only sees `OPENAI_API_KEY=ref://openai-api-key`. The real API key is substituted by the local proxy just before the request leaves your machine.
+
+### Start the proxy manually
+
+```bash
+./bin/reflet proxy
+# reflet-proxy listening on http://127.0.0.1:17381
+```
 
 ## Motivation
 
